@@ -46,9 +46,12 @@ export default class Login {
 
   handleSubmitAdmin = (e) => {
     const user = {
+      //
+      // change the data-testid from employee to admin
       type: "Admin",
       email: e.target.querySelector(`input[data-testid="admin-email-input"]`)
         .value,
+      // change the data-testid from employee to admin
       password: e.target.querySelector(
         `input[data-testid="admin-password-input"]`
       ).value,
