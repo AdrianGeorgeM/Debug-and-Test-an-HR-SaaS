@@ -13,6 +13,7 @@ describe("Given I am connected as an employee", () => {
     });
 
     test("Then bills should be ordered from earliest to latest", () => {
+      // We go to views/BillsUI.js to fix the sort date.
       const html = BillsUI({ data: bills });
       document.body.innerHTML = html;
       const dates = screen
