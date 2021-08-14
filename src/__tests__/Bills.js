@@ -13,7 +13,7 @@ describe("Given I am connected as an employee", () => {
     });
 
     test("Then bills should be ordered from earliest to latest", () => {
-      // We go to views/BillsUI.js to fix the sort date.
+      // We go to views/BillsUI.js to fix the sort date
       const html = BillsUI({ data: bills });
       document.body.innerHTML = html;
       const dates = screen
@@ -21,7 +21,8 @@ describe("Given I am connected as an employee", () => {
           /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i
         )
         .map((a) => a.innerHTML);
-      const antiChrono = (a, b) => (a < b ? 1 : -1);
+      // replace parameters (a,b) with (b,a) to ordered by date from earliest to latest
+      let antiChrono = (b, a) => (a < b ? 1 : -1);
       const datesSorted = [...dates].sort(antiChrono);
       expect(dates).toEqual(datesSorted);
     });
