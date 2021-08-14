@@ -40,7 +40,13 @@ const rows = (data) => {
 
   return data && data.length
     ? data
-        .sort((a, b) => {
+        .sort((b, a) => {
+          // / Turn strings into dates, and then subtract them
+          // to get a value that is either negative, positive, or zero.
+          //descending sort logic
+          // 2000 - 2001 = -1
+          // 2002 - 2002 = 0
+          // 2003 - 2002 = 1
           return new Date(b.date) - new Date(a.date);
         })
         .map((bill) => row(bill))
