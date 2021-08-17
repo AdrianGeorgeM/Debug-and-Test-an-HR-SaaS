@@ -50,6 +50,7 @@ export default class {
               try {
                 return {
                   ...doc.data(),
+                  // date: doc.data().date,
                   date: formatDate(doc.data().date),
                   status: formatStatus(doc.data().status),
                 };
