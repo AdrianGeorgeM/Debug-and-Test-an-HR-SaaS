@@ -234,19 +234,25 @@ export default class {
 
   getBillsAllUsers = () => {
     if (this.firestore) {
-      return this.firestore
-        .bills()
-        .get()
-        .then((snapshot) => {
-          const bills = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            date: doc.data().date,
-            status: doc.data().status,
-          }));
-          return bills;
-        })
-        .catch(console.log);
+      return (
+        this.firestore
+          .bills()
+          // ordered by date from earliest to latest admin/dasboard
+          // https://firebase.google.com/docs/firestore/query-data/order-limit-data
+          // /javascript/functions/firebase/Query/orderBy
+          .orderBy("date", "asc")
+          .get()
+          .then((snapshot) => {
+            const bills = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+              date: doc.data().date,
+              status: doc.data().status,
+            }));
+            return bills;
+          })
+          .catch(console.log)
+      );
     }
   };
   // no need to cover this function by tests
