@@ -140,6 +140,64 @@ export default class {
     this.onNavigate(ROUTES_PATH["Dashboard"]);
   };
 
+  // Solution 1 Fix Bug Hunt - Dashboard --Most Easy solution
+  handleShowTickets(e, bills, index) {
+    if (this.counter === undefined || this.index !== index) this.counter = 0;
+    if (this.index === undefined || this.index !== index) this.index = index;
+    if (this.counter % 2 === 0) {
+      $(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
+      $(`#status-bills-container${this.index}`).html(
+        cards(filteredBills(bills, getStatus(this.index)))
+      );
+      this.counter++;
+    } else {
+      $(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
+      $(`#status-bills-container${this.index}`).html("");
+      this.counter++;
+    }
+    console.log(`#status-bills-container${index}`);
+    bills.forEach((bill) => {
+      //Add #status-bills-container${index}`
+      //Before #open-bill${bill.id} to open container click
+      // Dashboard.js: #status-bills-container1
+      // Dashboard.js: #status-bills-container2
+      // Dashboard.js: #status-bills-container3
+      $(`#status-bills-container${index} #open-bill${bill.id}`).click((e) =>
+        this.handleEditTicket(e, bill, bills)
+      );
+    });
+
+    return bills;
+  }
+  // Solution 2 Bug Hunt - Dashboard
+  // handleShowTickets(e, bills, index) {
+  //   const arrowIcon = document.getElementById(`arrow-icon${index}`);
+  //   const expandList = arrowIcon.getAttribute("aria-expanded") === "true";
+
+  //   if (!expandList) {
+  //     $(`#arrow-icon${index}`).css({ transform: "rotate(0deg)" });
+  //     $(`#status-bills-container${index}`).html(
+  //       cards(filteredBills(bills, getStatus(index)))
+  //     );
+
+  //     arrowIcon.setAttribute("aria-expanded", "true");
+  //   } else {
+  //     $(`#arrow-icon${index}`).css({ transform: "rotate(90deg)" });
+  //     $(`#status-bills-container${index}`).html("");
+
+  //     arrowIcon.setAttribute("aria-expanded", "false");
+  //   }
+  //   filteredBills(bills, getStatus(index)).forEach((bill) => {
+  //     $(`#open-bill${bill.id}`).click((e) =>
+  //       this.handleEditTicket(e, bill, bills)
+  //     );
+  //   });
+
+  //   return bills;
+  // }
+  // no need to cover this function by tests
+
+  /* Solution 3 Bug Hunt -Dashboard 
   handleShowTickets(e, bills, index) {
     if (this.counter === undefined || this.index !== index) this.counter = 0;
     if (this.index === undefined || this.index !== index) this.index = index;
@@ -149,24 +207,31 @@ export default class {
         cards(filteredBills(bills, getStatus(this.index)))
       );
 
+      //++ Call filteredBills for each Bill
+      filteredBills(bills, getStatus(this.index)).forEach((bill) => {
+        $(`#open-bill${bill.id}`).click((e) =>
+          this.handleEditTicket(e, bill, bills)
+        );
+      });
       this.counter++;
+      // ------
     } else {
       $(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
       $(`#status-bills-container${this.index}`).html("");
       this.counter++;
     }
 
-    //  The declaration was marked as deprecated here.
-    bills.forEach((bill) => {
-      $(`#open-bill${bill.id}`).click((e) =>
-        this.handleEditTicket(e, bill, bills)
-      );
-    });
+    //  -- I replace bills() with filteredBills function
+    // bills.forEach((bill) => {
+    //   $(`#open-bill${bill.id}`).click((e) =>
+    //     this.handleEditTicket(e, bill, bills)
+    //   );
+    // });
 
     return bills;
   }
+*/
 
-  // no need to cover this function by tests
   getBillsAllUsers = () => {
     if (this.firestore) {
       return this.firestore
@@ -184,8 +249,8 @@ export default class {
         .catch(console.log);
     }
   };
-
   // no need to cover this function by tests
+
   updateBill = (bill) => {
     if (this.firestore) {
       return this.firestore
