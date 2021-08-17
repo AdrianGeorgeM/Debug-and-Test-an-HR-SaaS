@@ -1,10 +1,10 @@
 {
   "scripts": {
-    "test": "jest ",
+    "test": "jest --coverage --noStackTrace --silent ",
     "watch": "jest --watch"
   },
   "jest": {
-    "verbose": true,
+    "verbose": false,
     "setupFiles": [
       "./setup-jest.js"
     ],

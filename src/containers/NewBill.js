@@ -16,6 +16,8 @@ export default class NewBill {
     this.fileName = null;
     new Logout({ document, localStorage, onNavigate });
   }
+
+  // FIX  documents with an extension no other than jpg, jpeg, or pgn can be sent via the form
   handleChangeFile = (e) => {
     const file = this.document.querySelector(`input[data-testid="file"]`)
       .files[0];
