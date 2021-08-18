@@ -39,6 +39,20 @@ describe("Given I am connected as an employee", () => {
       // const billsUser = BillsUI({ loading: true });
       document.body.innerHTML = BillsUI({ loading: true });
 
+      /*
+      // Test Loading Page true 
+      const htmlTest = BillsUI({ loading: true });
+      document.body.innerHTML = html;
+      expect(screen.getAllByText("Loading...")).toBeTruthy();
+      */
+
+      /*
+      Test Loading Page Error = false
+    const htmlTest = BillsUI({ error: true });
+      document.body.innerHTML = html;
+      expect(screen.getAllByText("Error")).toBeTruthy();
+ */
+
       // LoadingPage()=> views/LoadingPage
       //represent the dashboard for employee/admin
       const loadingDashboard = LoadingPage();
@@ -47,13 +61,13 @@ describe("Given I am connected as an employee", () => {
       expect(loadingDashboard).toBeTruthy();
 
       // Solution 2
-      //  const html = BillsUI({ loading: true });
-      // document.body.innerHTML = html;
+      //  const htmlTest = BillsUI({ loading: true });
+      // document.body.innerHTML = htmlTest;
       // expect(screen.getAllByText("Loading...")).toBeTruthy();
 
       // Solution 3
-      //  const html = BillsUI({ data: bills, loading: true });
-      //  document.body.innerHTML = html;
+      //  const htmlTest = BillsUI({ data: bills, loading: true });
+      //  document.body.innerHTML = htmlTest;
       //  const loading = screen.getByTestId("loading");
       //  expect(loading).toBeTruthy();
     });
