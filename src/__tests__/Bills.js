@@ -31,8 +31,53 @@ describe("Given I am connected as an employee", () => {
     });
   });
 
-  // Add a GET Bills integration test FROM tests/Dasboard.js
+  //TEST loading page BillsUI is called
+  describe("When I am on bills page but it is loading", () => {
+    test("Then Loading page should be shown", () => {
+      // Loading page should be rendered when loading = TRUE"
+      //export default ({ data: bills, loading, error }) views/BillsUI.js
+      // const billsUser = BillsUI({ loading: true });
+      document.body.innerHTML = BillsUI({ loading: true });
 
+      // LoadingPage()=> views/LoadingPage
+      //represent the dashboard for employee/admin
+      const loadingDashboard = LoadingPage();
+
+      // expect(billsUser.indexOf(loadingDashboard) > -1).toBeTruthy();
+      expect(loadingDashboard).toBeTruthy();
+
+      // Solution 2
+      //  const html = BillsUI({ loading: true });
+      // document.body.innerHTML = html;
+      // expect(screen.getAllByText("Loading...")).toBeTruthy();
+
+      // Solution 3
+      //  const html = BillsUI({ data: bills, loading: true });
+      //  document.body.innerHTML = html;
+      //  const loading = screen.getByTestId("loading");
+      //  expect(loading).toBeTruthy();
+    });
+  });
+
+  //TEST error page
+  describe("When there is an error ", () => {
+    test("Then ErrorPage should be rendered when loading is false / error is true", () => {
+      const billsUserError = BillsUI({
+        data: [],
+        loading: false,
+        error: "Error Message!!!",
+      });
+      const errorHtml = ErrorPage("Error Message!!!");
+      expect(billsUserError.indexOf(errorHtml) > -1).toBeTruthy();
+
+      // Solution 2
+      //      const html = BillsUI({ error: " error message" });
+      // document.body.innerHTML = html;
+      // expect(screen.getAllByText("Error")).toBeTruthy();
+      // });
+    });
+  });
+  // Add a GET Bills integration test FROM tests/Dasboard.js
   describe("Given I am a user connected as Employee", () => {
     describe("When I navigate to Bills Overview(BillS UI", () => {
       const getSpy = jest.spyOn(firebase, "get");

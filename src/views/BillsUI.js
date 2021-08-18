@@ -54,6 +54,8 @@ const rows = (data) => {
     : "";
 };
 
+// i will use this { data: bills, loading, error } in /tests/bills
+// for views/Bills component: increase coverage to 100%
 export default ({ data: bills, loading, error }) => {
   const modal = () => `
     <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -73,8 +75,12 @@ export default ({ data: bills, loading, error }) => {
   `;
 
   if (loading) {
+    // if loading:true show the LoadingPage
+    // cover LoadingPage()  for views/Bills component: increase coverage to 100% + 1 tests passed
     return LoadingPage();
   } else if (error) {
+    // if error show error
+    //cover ErrorPage()  for views/Bills component: increase coverage to 100% + 1 tests passed
     return ErrorPage(error);
   }
 
