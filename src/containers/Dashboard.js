@@ -84,8 +84,8 @@ export default class {
 
   handleClickIconEye = () => {
     const billUrl = $("#icon-eye-d").attr("data-bill-url");
-    // Fix the image from 0.8 to 0.2 in admin dasboard for smaller size
-    const imgWidth = Math.floor($("#modaleFileAdmin1").width() * 0.8);
+    // Fix the image from 0.8 to 0.5 in admin dasboard for smaller size
+    const imgWidth = Math.floor($("#modaleFileAdmin1").width() * 0.5);
     $("#modaleFileAdmin1")
       .find(".modal-body")
       .html(
