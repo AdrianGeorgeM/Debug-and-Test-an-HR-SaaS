@@ -23,17 +23,6 @@ export default class NewBill {
       .files[0];
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
-
-    // this.firestore.storage
-    //   .ref(`justificatifs/${fileName}`)
-    //   .put(file)
-    //   .then((snapshot) => snapshot.ref.getDownloadURL())
-    //   .then((url) => {
-    //     this.fileUrl = url;
-    //     this.fileName = fileName;
-    //   });
-
-    // aici
     const extensionType = /(png|jpg|jpeg)/g;
     // const testMatch = /\.(|png|jpg|jpeg)$/i.test(fileName);
 
