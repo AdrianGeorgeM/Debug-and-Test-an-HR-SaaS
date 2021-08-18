@@ -85,7 +85,7 @@ export default class {
   handleClickIconEye = () => {
     const billUrl = $("#icon-eye-d").attr("data-bill-url");
     // Fix the image from 0.8 to 0.2 in admin dasboard for smaller size
-    const imgWidth = Math.floor($("#modaleFileAdmin1").width() * 0.2);
+    const imgWidth = Math.floor($("#modaleFileAdmin1").width() * 0.8);
     $("#modaleFileAdmin1")
       .find(".modal-body")
       .html(
@@ -172,7 +172,8 @@ export default class {
   // Solution 2 Bug Hunt - Dashboard
   // handleShowTickets(e, bills, index) {
   //   const arrowIcon = document.getElementById(`arrow-icon${index}`);
-  //   const expandList = arrowIcon.getAttribute("aria-expanded") === "true";
+  //The arrowIcon element has an aria-expanded that starts as false not expanded) by default
+  //   const expandList = ${arrowIcon}.attr("aria-expanded","true");
 
   //   if (!expandList) {
   //     $(`#arrow-icon${index}`).css({ transform: "rotate(0deg)" });
