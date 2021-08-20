@@ -12,8 +12,8 @@ import Firestore from "../app/Firestore";
 import Router from "../app/Router";
 
 describe("Given I am connected as an employee", () => {
-  describe("When BillsUI is called", () => {
-    //TEST loading page BillsUI is called
+  describe("When BillsUI(Bills Page) is called", () => {
+    //*** TEST loading page BillsUI is called
     test("Then Loading page should be shown", () => {
       // Loading page should be rendered when loading = TRUE"
       //export default ({ data: bills, loading, error }) views/BillsUI.js
@@ -52,7 +52,8 @@ describe("Given I am connected as an employee", () => {
       //  const loading = screen.getByTestId("loading");
       //  expect(loading).toBeTruthy();
     });
-    //TEST error page
+
+    // ***TEST error page
     test("Then ErrorPage should be rendered when loading is false / error is true", () => {
       const billsUserError = BillsUI({
         data: [],
@@ -71,23 +72,56 @@ describe("Given I am connected as an employee", () => {
   });
 
   describe("When I am on Bills Page", () => {
-    test("Then bill icon in vertical layout should be highlighted", () => {
-      jest.mock("../app/Firestore");
-      Firestore.bills = () => ({ bills, get: jest.fn().mockResolvedValue() });
+    const pathname = ROUTES_PATH["Bills"];
+    Object.defineProperty(window, "location", {
+      value: {
+        hash: pathname,
+      },
+    });
+
+    beforeEach(() => {
+      let onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname });
+      };
       Object.defineProperty(window, "localStorage", {
         value: localStorageMock,
       });
-      window.localStorage.setItem(
-        "user",
-        JSON.stringify({
-          type: "Employee",
-        })
-      );
-      const pathname = ROUTES_PATH["Bills"];
-      Object.defineProperty(window, "location", { value: { hash: pathname } });
+      window.localStorage.setItem("user", JSON.stringify({ type: "Employee" }));
+    });
+
+    test("Then bill icon in vertical layout (verticalLayout(120) should be highlighted", () => {
+      jest.mock("../app/Firestore");
+      // Mock - parameters for Behavior Driven Development (BDD)  Firebase & data fetching
+      Firestore.bills = () => ({ bills, get: jest.fn().mockResolvedValue() });
+
+      // Object.defineProperty(window, "localStorage", {
+      //   value: localStorageMock,
+      // });
+
+      // // routing variable
+      // const pathname = ROUTES_PATH["Bills"];
+
+      // window.localStorage.setItem(
+      //   "user",
+      //   JSON.stringify({
+      //     type: "Employee",
+      //   })
+      // );
+
+      // build div DOM
+      // Object.defineProperty(window, "location", {
+      //   value: {
+      //     hash: pathname,
+      //   },
+      // });
+      // Get the HTML content of the current document:
+      // Change the HTML content of the current document (will overwrite all existing HTML elements inside <body>):
       document.body.innerHTML = `<div id="root"></div>`;
+
+      // Router init to get actives CSS classes
       Router();
       expect(
+        // "icon-window" must contain the class "active-icon"
         screen.getByTestId("icon-window").classList.contains("active-icon")
       ).toBe(true);
     });
@@ -110,16 +144,16 @@ describe("Given I am connected as an employee", () => {
 
   // Test When User Click New Bill Button
   describe("When I click on the New Bill button", () => {
-    test("Then it should render the NewBill page form", () => {
-      Object.defineProperty(window, "localStorage", {
-        value: localStorageMock,
-      });
-      window.localStorage.setItem(
-        "user",
-        JSON.stringify({
-          type: "Employee",
-        })
-      );
+    test("Then it should DISPLAY the NewBill page form", () => {
+      // Object.defineProperty(window, "localStorage", {
+      //   value: localStorageMock,
+      // });
+      // window.localStorage.setItem(
+      //   "user",
+      //   JSON.stringify({
+      //     type: "Employee",
+      //   })
+      // );
       const htmlTest = BillsUI({ data: [] });
       document.body.innerHTML = htmlTest;
       // we can add beforeEach test to onNavigate
@@ -147,15 +181,15 @@ describe("Given I am connected as an employee", () => {
   describe("Given I am connected as Employee and I am on Dasboard Bills Page", () => {
     describe("When I click on the icon eye", () => {
       test("A modal should open", () => {
-        Object.defineProperty(window, "localStorage", {
-          value: localStorageMock,
-        });
-        window.localStorage.setItem(
-          "user",
-          JSON.stringify({
-            type: "Employee",
-          })
-        );
+        // Object.defineProperty(window, "localStorage", {
+        //   value: localStorageMock,
+        // });
+        // window.localStorage.setItem(
+        //   "user",
+        //   JSON.stringify({
+        //     type: "Employee",
+        //   })
+        // );
         const html = BillsUI({ data: bills });
         document.body.innerHTML = html;
         const onNavigate = (pathname) => {
