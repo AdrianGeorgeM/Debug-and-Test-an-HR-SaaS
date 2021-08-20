@@ -181,25 +181,25 @@ describe("Given I am connected as an employee", () => {
     describe("Given I am connected as Employee and I am on Dasboard Bills Page", () => {
       describe("When I click on the icon eye", () => {
         test("A modal should open", () => {
-          // Object.defineProperty(window, "localStorage", {
-          //   value: localStorageMock,
-          // });
-          // window.localStorage.setItem(
-          //   "user",
-          //   JSON.stringify({
-          //     type: "Employee",
-          //   })
-          // );
+          Object.defineProperty(window, "localStorage", {
+            value: localStorageMock,
+          });
+          window.localStorage.setItem(
+            "user",
+            JSON.stringify({
+              type: "Employee",
+            })
+          );
           const html = BillsUI({ data: bills });
           document.body.innerHTML = html;
-          // const onNavigate = (pathname) => {
-          //   document.body.innerHTML = ROUTES({ pathname });
-          // };
-          // const firestore = null;
+          const onNavigate = (pathname) => {
+            document.body.innerHTML = ROUTES({ pathname });
+          };
+          const firestore = null;
           const allBills = new Bills({
             document,
             onNavigate,
-            firestore: null,
+            firestore,
             localStorage: window.localStorage,
           });
 
@@ -211,42 +211,41 @@ describe("Given I am connected as an employee", () => {
           eye.addEventListener("click", handleClickIconEye);
           fireEvent.click(eye);
           expect(handleClickIconEye).toHaveBeenCalled();
-          const modale = document.getElementById("modaleFile");
-          expect(modale).toBeTruthy();
+          // const modale = document.getElementById("modaleFile");
+          const showModal = document.getElementsByClassName(".show");
+          // / The class show must be present modal is open
+          expect(showModal).toBeTruthy();
         });
       });
     });
   });
   // End Test When User Click on the eye icon of a bill
-
-  // Add a GET Bills integration test FROM tests/Dasboard.js
-  describe("Given I am a user connected as Employee", () => {
-    describe("When I navigate to Bills Overview(BillS UI", () => {
+});
+describe("Given I am a user connected as Employee", () => {
+  describe("When I navigate to Bills UI", () => {
+    test("fetches bills from mock API GET", async () => {
       const getSpy = jest.spyOn(firebase, "get");
-
-      test("fetches bills from mock API GET", async () => {
-        const bills = await firebase.get();
-        expect(getSpy).toHaveBeenCalledTimes(1);
-        expect(bills.data.length).toBe(4);
-      });
-      test("fetches bills from an API and fails with 404 message error", async () => {
-        firebase.get.mockImplementationOnce(() => {
-          Promise.reject(new Error("Error 404"));
-        });
-        const html = BillsUI({ error: "Error 404" });
-        document.body.innerHTML = html;
-        const message = await screen.getByText(/Error 404/);
-        expect(message).toBeTruthy();
-      });
-      test("fetches messages from an API and fails with 500 message error", async () => {
-        firebase.get.mockImplementationOnce(() =>
-          Promise.reject(new Error("Error 500"))
-        );
-        const html = BillsUI({ error: "Error 500" });
-        document.body.innerHTML = html;
-        const message = await screen.getByText(/Error 500/);
-        expect(message).toBeTruthy();
-      });
+      const bills = await firebase.get();
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(bills.data.length).toBe(4);
+    });
+    test("fetches bills from an API and fails with 404 message error", async () => {
+      firebase.get.mockImplementationOnce(() =>
+        Promise.reject(new Error("Erreur 404"))
+      );
+      const html = BillsUI({ error: "Erreur 404" });
+      document.body.innerHTML = html;
+      const message = await screen.getByText(/Erreur 404/);
+      expect(message).toBeTruthy();
+    });
+    test("fetches messages from an API and fails with 500 message error", async () => {
+      firebase.get.mockImplementationOnce(() =>
+        Promise.reject(new Error("Erreur 500"))
+      );
+      const html = BillsUI({ error: "Erreur 500" });
+      document.body.innerHTML = html;
+      const message = await screen.getByText(/Erreur 500/);
+      expect(message).toBeTruthy();
     });
   });
 });
