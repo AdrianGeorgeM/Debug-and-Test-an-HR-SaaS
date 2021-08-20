@@ -7,12 +7,15 @@ export default class {
     this.document = document;
     this.onNavigate = onNavigate;
     this.firestore = firestore;
+
+    // coverButton New Bill Button
     const buttonNewBill = document.querySelector(
       `button[data-testid="btn-new-bill"]`
     );
     if (buttonNewBill)
       buttonNewBill.addEventListener("click", this.handleClickNewBill);
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`);
+    // cover eye icon of a bill
     if (iconEye)
       iconEye.forEach((icon) => {
         icon.addEventListener("click", (e) => this.handleClickIconEye(icon));
