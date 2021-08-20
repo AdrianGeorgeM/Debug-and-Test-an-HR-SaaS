@@ -13,6 +13,9 @@ import { ROUTES, ROUTES_PATH } from "../constants/routes";
 
 jest.mock("../app/Firestore");
 
+// Jest Mock Functions
+// Mock functions are also known as "spies", because they let you spy on the behavior of a function that is called indirectly by some other code, rather than just testing the output. You can create a mock function with jest.fn().
+
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page and I add an image file", () => {
     test("Then this new file should have been changed in the input file", () => {

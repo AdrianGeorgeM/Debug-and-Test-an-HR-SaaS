@@ -73,18 +73,19 @@ describe("Given I am connected as an employee", () => {
 
   describe("When I am on Bills Page", () => {
     const pathname = ROUTES_PATH["Bills"];
-    Object.defineProperty(window, "location", {
-      value: {
-        hash: pathname,
-      },
-    });
-
+    let onNavigate;
     beforeEach(() => {
-      let onNavigate = (pathname) => {
+      onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
       Object.defineProperty(window, "localStorage", {
         value: localStorageMock,
+      });
+
+      Object.defineProperty(window, "location", {
+        value: {
+          hash: pathname,
+        },
       });
       window.localStorage.setItem("user", JSON.stringify({ type: "Employee" }));
     });
@@ -140,47 +141,10 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono);
       expect(dates).toEqual(datesSorted);
     });
-  });
 
-  // Test When User Click New Bill Button
-  describe("When I click on the New Bill button", () => {
-    test("Then it should DISPLAY the NewBill page form", () => {
-      // Object.defineProperty(window, "localStorage", {
-      //   value: localStorageMock,
-      // });
-      // window.localStorage.setItem(
-      //   "user",
-      //   JSON.stringify({
-      //     type: "Employee",
-      //   })
-      // );
-      const htmlTest = BillsUI({ data: [] });
-      document.body.innerHTML = htmlTest;
-      // we can add beforeEach test to onNavigate
-      const onNavigate = (pathname) => {
-        document.body.innerHTML = ROUTES({ pathname });
-      };
-      const firestore = null;
-      const allBill = new Bills({
-        document,
-        onNavigate,
-        firestore,
-        localStorage: window.localStorage,
-      });
-
-      const handleClickNewBill = jest.fn(allBill.handleClickNewBill);
-      const billBtn = screen.getByTestId("btn-new-bill");
-      billBtn.addEventListener("click", handleClickNewBill);
-      fireEvent.click(billBtn);
-      expect(screen.getAllByText("Send a fee")).toBeTruthy();
-    });
-  });
-  //End Test When User Click New Bill Button
-
-  // Test When User Click on the eye icon of a bill
-  describe("Given I am connected as Employee and I am on Dasboard Bills Page", () => {
-    describe("When I click on the icon eye", () => {
-      test("A modal should open", () => {
+    // Test When User Click New Bill Button
+    describe("When I click on the New Bill button", () => {
+      test("Then it should DISPLAY the NewBill page form", () => {
         // Object.defineProperty(window, "localStorage", {
         //   value: localStorageMock,
         // });
@@ -190,29 +154,66 @@ describe("Given I am connected as an employee", () => {
         //     type: "Employee",
         //   })
         // );
-        const html = BillsUI({ data: bills });
-        document.body.innerHTML = html;
-        const onNavigate = (pathname) => {
-          document.body.innerHTML = ROUTES({ pathname });
-        };
-        const firestore = null;
-        const allBills = new Bills({
+        const htmlTest = BillsUI({ data: [] });
+        document.body.innerHTML = htmlTest;
+        // we can add beforeEach test to onNavigate on top globaly
+        // const onNavigate = (pathname) => {
+        //   document.body.innerHTML = ROUTES({ pathname });
+        // };
+        // const firestore = null;
+        const allBill = new Bills({
           document,
           onNavigate,
-          firestore,
+          firestore: null,
           localStorage: window.localStorage,
         });
 
-        $.fn.modal = jest.fn();
-        const eye = screen.getAllByTestId("icon-eye")[0];
-        const handleClickIconEye = jest.fn(() =>
-          allBills.handleClickIconEye(eye)
-        );
-        eye.addEventListener("click", handleClickIconEye);
-        fireEvent.click(eye);
-        expect(handleClickIconEye).toHaveBeenCalled();
-        const modale = document.getElementById("modaleFile");
-        expect(modale).toBeTruthy();
+        const handleClickNewBill = jest.fn(allBill.handleClickNewBill);
+        const billBtn = screen.getByTestId("btn-new-bill");
+        billBtn.addEventListener("click", handleClickNewBill);
+        fireEvent.click(billBtn);
+        expect(screen.getAllByText("Send a fee")).toBeTruthy();
+      });
+    });
+    //End Test When User Click New Bill Button
+
+    // Test When User Click on the eye icon of a bill
+    describe("Given I am connected as Employee and I am on Dasboard Bills Page", () => {
+      describe("When I click on the icon eye", () => {
+        test("A modal should open", () => {
+          // Object.defineProperty(window, "localStorage", {
+          //   value: localStorageMock,
+          // });
+          // window.localStorage.setItem(
+          //   "user",
+          //   JSON.stringify({
+          //     type: "Employee",
+          //   })
+          // );
+          const html = BillsUI({ data: bills });
+          document.body.innerHTML = html;
+          // const onNavigate = (pathname) => {
+          //   document.body.innerHTML = ROUTES({ pathname });
+          // };
+          // const firestore = null;
+          const allBills = new Bills({
+            document,
+            onNavigate,
+            firestore: null,
+            localStorage: window.localStorage,
+          });
+
+          $.fn.modal = jest.fn();
+          const eye = screen.getAllByTestId("icon-eye")[0];
+          const handleClickIconEye = jest.fn(() =>
+            allBills.handleClickIconEye(eye)
+          );
+          eye.addEventListener("click", handleClickIconEye);
+          fireEvent.click(eye);
+          expect(handleClickIconEye).toHaveBeenCalled();
+          const modale = document.getElementById("modaleFile");
+          expect(modale).toBeTruthy();
+        });
       });
     });
   });
@@ -249,4 +250,3 @@ describe("Given I am connected as an employee", () => {
     });
   });
 });
-// });
