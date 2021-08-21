@@ -264,7 +264,7 @@ export default class {
         .bill(bill.id)
         .update(bill)
         .then((bill) => bill)
-        .catch(console.log);
+        .catch();
     }
   };
 }
