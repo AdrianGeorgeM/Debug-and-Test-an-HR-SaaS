@@ -29,7 +29,7 @@ const rows = (data) => {
 
   // if (data && data.length) is working also without data.length
   // {
-  //   console.log(data);//represent the bills from UserInterface
+
   //   data.sort(function (a, b) {
   //     return new Date(a.date) - new Date(b.date);
   //   });

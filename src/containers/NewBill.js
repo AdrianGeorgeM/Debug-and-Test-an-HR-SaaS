@@ -27,14 +27,8 @@ export default class NewBill {
     // const testMatch = /\.(|png|jpg|jpeg)$/i.test(fileName);
 
     const extension = fileName.split(".").pop(); //check what type of files and remove the last element after . and returns the element(pdf,jpeg,png etc..)
-    // console.log("type" + extension);
     // convert null(other types) or png|jpg|jpeg in to lower letters
     const matchExtension = extension.toLowerCase().match(extensionType);
-
-    // console.log("filename " + fileName);
-    // console.log("filepath " + filePath);
-    // console.log("file " + file);
-    // console.log("match " + matchExtension);
 
     if (matchExtension) {
       $("#btn-send-bill").prop("disabled", false); //show the button if accepted input
@@ -72,7 +66,7 @@ export default class NewBill {
     //     });
     // } else {
     //   e.target.value = "";
-    //   console.log("errtoro");
+    //
     // }
   };
 
