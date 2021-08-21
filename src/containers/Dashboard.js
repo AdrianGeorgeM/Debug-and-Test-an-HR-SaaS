@@ -155,7 +155,7 @@ export default class {
       $(`#status-bills-container${this.index}`).html("");
       this.counter++;
     }
-    console.log(`#status-bills-container${index}`);
+   
     bills.forEach((bill) => {
       //Add #status-bills-container${index}`
       //Before #open-bill${bill.id} to open container click
