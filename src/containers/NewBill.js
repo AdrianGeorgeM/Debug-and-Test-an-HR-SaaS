@@ -51,7 +51,7 @@ export default class NewBill {
       // disable the button if type is not valid,and show alert
       $("#btn-send-bill").prop("disabled", true);
 
-      // alert("Only Format in .JPEG .PNG .JPG");
+      alert("Only Format in .JPEG .PNG .JPG");
     }
 
     // solution 2
