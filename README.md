@@ -1,94 +1,76 @@
+# Debug and Test an HR SaaS 💻
 
-Developed Skills
-Debug a web application
-Write a manual E2E test plan
-Write integration tests with JavaScript
-Write unit tests with JavaScript
-Description
-Billed is a company that produces SaaS solutions for human resources teams. It consists of two user paths: the HR administrator side and the employee side.
+Billed is a company that produces SaaS solutions for human resources teams. It consists of two user paths: the HR administrator side and the employee side. The aim of the project was to improve the employee's career path and make it more reliable by fixing bugs and writing tests.
 
-Aim of the project was to improve the employee's career path and make it more reliable by fixing bugs and writing tests. The app had already been developed, the code as well as a description of several bugs were provided.
+## Developed Skills 💼
+- Debugging a web application
+- Writing a manual E2E test plan
+- Writing integration tests with JavaScript
+- Writing unit tests with JavaScript
 
-Objectives
-BUG REPORT
-fix bugs identified in bug report provided by Jest
-bills should be ordered by date from earliest to latest
-if admin correctly fills out login fields, they should be able to navigate to dashboard page.
-BUG HUNT
-BUG 1
-Being connected as an employee, it's possible to type in the information for a bill and add a receipt as proof, then submit the receipt using one of the following formats: jpg, jpeg, png.
+## Description 📄
+The app had already been developed, the code as well as a description of several bugs were provided. The objective was to fix bugs identified in a bug report provided by Jest, order bills by date, and ensure the admin can navigate to the dashboard page after correct login.
 
-Going to the bills page and clicking on the icon to display the receipt: the modal opens, but there's no image.
+## Objectives 🎯
+- BUG REPORT: Fix bugs identified in bug report provided by Jest.
+- BUG HUNT: Identify and solve more bugs.
+- UNIT & INTEGRATION TESTS: Increase coverage, cover all statements except back-end firebase calls.
+- E2E TEST: Write an E2E test plan for the employee flow.
 
-Being connected as an admin and clicking on the corresponding ticket, the name of the receipt file is null. The same thing happens when clicking on the icon to display the receipt: the modal opens, but there's no image.
+## Requirements 📋
+- Entirely cover Bills and NewBill files with tests
+- Use of Jest and Testing Library
+- Written E2E test plan
+- Generate Jest coverage report
 
-Expected behavior:
+## Challenges & Achievements 🏆
+- Writing a mock to replace Firestore functionality
+- Applying Jest spyOn functionality
 
-the modal must display the image
-on the dashboard, the form associated with the ticket should display the name of the file
-BUG 2
-Being connected as an admin and opening up a list of tickets (pending, valued, rejected), then select a ticket, then open up a second list, it is not possible to then select a ticket from the first list.
+## How to Run the App Locally 🔧
 
-Expected behavior:
+1. Clone the project:
+```bash
+$ git clone https://github.com/AdrianGeorgeM/Debug-and-Test-an-HR-SaaS
+```
+2. Navigate to the cloned repository:
+```bash
+$ cd Debug-and-Test-an-HR-SaaS
+```
+3. Install npm packages (described in package.json):
+```bash
+$ npm install
+```
+4. Install live-server to run a local server:
+```bash
+$ npm install -g live-server
+```
+5. Launch the App:
+```bash
+$ live-server
+```
+6. Open a browser and navigate to:
+```bash
+http://127.0.0.1:8080/
+```
 
-be able to open up multiple list and consult the tickets in each one.
-UNIT & INTEGRATION TESTS
-views/Bills component: increase coverage to 100%
-container/Bills component:
-cover all statements except back-end firebase calls
-add GET Bills integration test
-container/NewBill component:
-cover all statements except back-end firebase calls
-add POST NewBill integration test
-E2E TEST
-Write an E2E test plan for the employee flow. This plan must contain all possible scenarios and adhere to the standard form.
+## How to Perform Tests 🔍
 
-Requirements
-entirely cover Bills and NewBill files with tests
-use of Jest and Testing Library
-written E2E test plan
-generate Jest coverage report
-Challenges & Achievements
-write a mock to replace firestore functionality
-apply Jest spyOn functionality
-**How to run the App localy**:
+- To run all tests with Jest:
+```bash
+$ npm run test
+```
+- To run a single test:
+  * Install jest-cli:
+  ```bash
+  $npm i -g jest-cli
+  ```
+  * Run your test file:
+  ```bash
+  $jest src/__tests__/your_test_file.js
+  ```
 
-*clone the project*
-`$ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-EN.git`
-
-*go to the cloned repo*
-`$ cd Billed-app-EN`
-
-*install npm packages (described in package.json)*
-`$ npm install`
-
-*install live-server to run a local server*
-`$ npm install -g live-server`
-
-*launch the App*
-`$ live-server`
-
-*then go to :*
-`http://127.0.0.1:8080/`
-
-
-**How to run all tests with Jest:**
-
-`$ npm run test`
-
-**How to run a single test:**
-
-*install jest-cli*
-
-`$npm i -g jest-cli`
-
-*then*
-
-`$jest src/__tests__/your_test_file.js`
-
-**How to see test coverage:**
-
-`http://127.0.0.1:8080/coverage/lcov-report/`
-
-
-# Debug-and-Test-an-HR-SaaS
+- To view test coverage, open a browser and navigate to:
+```bash
+http://127.0.0.1:8080/coverage/lcov-report/
+```
